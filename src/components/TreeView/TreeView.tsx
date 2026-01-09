@@ -130,7 +130,7 @@ function TreeView({ onBack }: TreeViewProps) {
   const handleDrop = (targetNodeId: string, position: 'before' | 'after' | 'inside') => {
     if (!draggedNode) return
 
-    const { node: draggedNodeData, parentId: draggedParentId } = draggedNode
+    const { node: draggedNodeData } = draggedNode
 
     // Prevent dropping on itself or its descendants
     if (targetNodeId === draggedNodeData.id || targetNodeId.startsWith(draggedNodeData.id + '-')) {
