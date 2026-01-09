@@ -1,0 +1,337 @@
+.kanban-board-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.kanban-board-header {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.kanban-board-header h1 {
+  color: #333;
+  font-size: 2rem;
+}
+
+.kanban-board {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.kanban-column {
+  background: #f8f9fa;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  transition: all 0.3s ease;
+}
+
+.kanban-column.drag-over {
+  background: rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 2px #667eea;
+}
+
+.column-header {
+  padding: 16px 20px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.column-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.column-orange {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.column-green {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.column-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-count {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.add-column-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-column-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.column-content {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-card-button {
+  background: white;
+  border: 2px dashed #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #666;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.add-card-button:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #f8f9ff;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kanban-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: move;
+  transition: all 0.2s;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.kanban-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.kanban-card.drag-over-top {
+  border-top-color: #667eea;
+}
+
+.kanban-card.drag-over-bottom {
+  border-bottom-color: #667eea;
+}
+
+.card-content {
+  padding-right: 24px;
+}
+
+.card-title {
+  color: #333;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  word-wrap: break-word;
+}
+
+.card-delete-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: #f87171;
+  color: white;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.kanban-card:hover .card-delete-button {
+  opacity: 1;
+}
+
+.card-delete-button:hover {
+  background: #ef4444;
+  transform: scale(1.1);
+}
+
+.card-edit-input {
+  width: 100%;
+  border: 2px solid #667eea;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.modal-input:focus {
+  border-color: #667eea;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button {
+  background: #e5e7eb;
+  color: #666;
+}
+
+.cancel-button:hover {
+  background: #d1d5db;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+@media (max-width: 1024px) {
+  .kanban-board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .kanban-board-container {
+    padding: 10px;
+  }
+
+  .kanban-board {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .kanban-board-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .column-header {
+    padding: 12px 16px;
+  }
+
+  .column-title {
+    font-size: 1rem;
+  }
+
+  .column-content {
+    padding: 12px;
+  }
+}
